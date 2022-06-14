@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>紫金学院驾考答题系统</title>
+    <style type="text/css">
+        #left_div,#logo_div{
+            border: 1px dodgerblue solid;
+            text-align: center;
+        }
+        #logo_div{
+            background-color: blueviolet;
+            height: 80px;
+        }
+        #logo_h1{
+            color: white;
+            font-family: 华文楷体;
+            width: 240px;
+            display: inline-block;
+            margin-left: 300px;
+        }
+        #logo_img{
+            position: absolute;
+            left: 10px;
+            height: 80px;
+        }
+        #left_div{
+            float: left;
+            width: 150px;
+            height: 350px;
+        }
+        #right_div{
+            border: 1px dodgerblue solid;
+            height: 350px;
+        }
+        td{
+            text-align: center;
+            width: 42px;
+            height: 20px;
+            border: white 4px solid;
+        }
+        .tr_no{
+            color: white;
+            background-color: cornflowerblue;
+        }
+        .tr_res{
+            color: white;
+            background-color: cornflowerblue;
+        }
+        #timer_div span{
+            display: inline-block;
+            width: 150px;
+            text-align: center;
+            color: red;
+            font-size: 20px;
+        }
+        #table_title{
+            color: cornflowerblue;
+            text-align: center;
+        }
+        #qus_body{
+
+        }
+        #next_btn{
+            width: 80px;
+            height: 30px;
+            border: 1px cornflowerblue solid;
+            color: white;
+            float: right;
+            border-radius: 10px;
+            background-color: cornflowerblue;
+        }
+        #before_btn{
+            width: 80px;
+            height: 30px;
+            border: 1px cornflowerblue solid;
+            color: white;
+            float: left;
+            border-radius: 10px;
+            background-color: cornflowerblue;
+        }
+
+        #next_btn:hover,#before_btn:hover{
+            background-color: blue;
+        }
+    </style>
+    <script type="text/javascript"
+            src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="layui.js" charset="utf-8"></script>
+
+</head>
+<body>
+    <div>
+        <div id="logo_div">
+            <img id="logo_img" src="../images/logo.png">
+            <h1 id="logo_h1">紫金驾考欢迎您</h1>
+        </div>
+        <div>
+            <div id="left_div">
+                <div id="table_div">
+                    <div id="table_title">题目列表</div>
+                    <table>
+                        <tr class="tr_no">
+                            <td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
+                        </tr>
+                        <tr class="tr_res">
+                            <td>✓</td><td>x</td><td>✓</td><td>✓</td><td>✓</td>
+                        </tr>
+                        <tr class="tr_no">
+                            <td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
+                        </tr>
+                        <tr class="tr_res">
+                            <td>✓</td><td>x</td><td>✓</td><td>✓</td><td>✓</td>
+                        </tr>
+                        <tr class="tr_no">
+                            <td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
+                        </tr>
+                        <tr class="tr_res">
+                            <td>✓</td><td>x</td><td>✓</td><td>✓</td><td>✓</td>
+                        </tr>
+                        <tr class="tr_no">
+                            <td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
+                        </tr>
+                        <tr class="tr_res">
+                            <td>✓</td><td>x</td><td>✓</td><td>✓</td><td>✓</td>
+                        </tr>
+
+                    </table>
+
+                </div>
+
+                <div id="timer_div">
+                    <span>倒计时</span>
+                    <span>00:00</span>
+                </div>
+
+            </div>
+            <div id="right_div">
+                <div id="qus_body">1. 1+1=?</div>
+                <div id="que_options">
+                    <div><input type="radio" name="option"/>a.0</div>
+                    <div><input type="radio" name="option"/>b.1</div>
+                    <div><input type="radio" name="option"/>c.2</div>
+                    <div><input type="radio" name="option"/>d.3</div>
+                </div>
+                <div>
+                    <input id="before_btn" type="button" value="上一题">
+                    <input id="next_btn" type="button" value="下一题">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ljh.zijin.dao.ExamHistoryDAO">
+    <resultMap id="historyMap" type="examHistory">
+        <result column="th_id" property="id"/>
+        <result column="u_id" property="userId"/>
+        <result column="th_score" property="score"/>
+        <result column="th_create_time" property="createTime"/>
+    </resultMap>
+    <insert id="insertExamHistory" parameterType="examHistory">
+        insert into
+            t_history
+        values
+            (null,#{userId},#{score},now())
+    </insert>
+    <select id="selectExamHistoryByUser" parameterType="int" resultMap="historyMap">
+        select
+            th_id,u_id,th_score,th_create_time
+        from
+             t_history
+        where
+              u_id=#{userId}
+    </select>
+</mapper>

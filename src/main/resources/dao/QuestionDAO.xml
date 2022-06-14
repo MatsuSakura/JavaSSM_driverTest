@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ljh.zijin.dao.QuestionDAO">
+    <resultMap id="questionMap" type="question">
+        <result column="q_id" property="id"/>
+        <result column="q_body" property="questionBody"/>
+        <result column="q_opt1" property="option1"/>
+        <result column="q_opt2" property="option2"/>
+        <result column="q_opt3" property="option3"/>
+        <result column="q_opt4" property="option4"/>
+        <result column="q_cur" property="q_cur"/>
+    </resultMap>
+
+    <select id="selectAllIds" resultType="int">
+        select q_id from t_question
+    </select>
+    <select id="selectQuestionById" parameterType="int" resultMap="questionMap">
+        select
+            q_id,q_body,q_opt1,q_opt2,q_opt3,q_opt4,q_cur
+        from t_question
+        where q_id=#{id}
+    </select>
+</mapper>
