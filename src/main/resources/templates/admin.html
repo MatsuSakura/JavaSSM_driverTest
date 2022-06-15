@@ -21,9 +21,24 @@
                 top.location.href="checkOut.action";
             }
         }
-        $.ajax({
-
+        $(function (){
+            var id=GetQueryString("username");
+            if (id!=null&&id!="admin"){
+                console.log("普通用户登录");
+                $("#qus").css("display","none");
+            }else{
+                return;
+            }
         });
+        function GetQueryString(username)
+        {
+            var reg = new RegExp("(^|&)"+ username +"=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if(r!=null)return  decodeURI(r[2]); return null;
+        }
+
+
+
     </script>
 </head>
 <body class="index">
@@ -53,12 +68,12 @@
 <div class="left-nav">
     <div id="side-nav">
         <ul id="nav">
-            <li><a id="qus" th:onclick="'javascript:;'"> <i class="iconfont left-nav-li">&#xe6b8;</i>
+            <li><a th:onclick="'javascript:;'"> <i class="iconfont left-nav-li">&#xe6b8;</i>
                 <cite>题库系统菜单</cite> <i class="iconfont nav_right">&#xe697;</i></a>
                 <ul class="sub-menu">
                     <li>
 <!--                        <a onclick="xadmin.add_tab('题库管理','./examManager')">-->
-                        <a href="examManager" target="contentPage">
+                        <a id="qus" href="examManager" target="contentPage">
                         <i class="iconfont">&#xe6a7;</i> <cite>题库管理</cite>
                     </a></li>
 <!--                    <li><a onclick="xadmin.add_tab('增加学生','FindAllClasssName')">-->

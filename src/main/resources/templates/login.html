@@ -22,6 +22,7 @@
         function doLogin(){
             var username=$("#username").val();
             var password=$("#password").val();
+            var url="admin?"+"id="+username;
             $.ajax({
                 type:"POST",
                 url:"user/doLogin.action",
@@ -36,7 +37,7 @@
                         location.href="admin";
                     }else if(res=="ok"){
                         alert("登录成功");
-                        location.href="admin";
+                        location.href="admin?username="+username;
                     }else{
                         alert("登录失败"+res);
                     }
