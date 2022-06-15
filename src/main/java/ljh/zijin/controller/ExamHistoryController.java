@@ -18,14 +18,14 @@ public class ExamHistoryController {
     @Autowired
     private ExamHistoryService examHistoryService;
 
-    @RequestMapping("/addHistory.action")
+    @RequestMapping(value = "/addHistory.action",produces = "text/html;charset=utf-8")
     @ResponseBody
     public void addExamHistory(HttpSession session,Integer score){
         User user=(User)session.getAttribute("loginUser");
         Integer userId=user.getId();
         examHistoryService.addExamHistory(userId,score);
     }
-    @RequestMapping("/getHistory.action")
+    @RequestMapping(value = "/getHistory.action",produces = "text/html;charset=utf-8")
     @ResponseBody
     public String getHistory(HttpSession session){
         User user=(User) session.getAttribute("loginUser");

@@ -40,13 +40,13 @@ public class DispatcherController {
         //然后跳转到登录页面
         return "login";
     }
-    @RequestMapping("/examAddOrModify")
+    @RequestMapping(value = "/examAddOrModify",produces = "text/html;charset=utf-8")
     public String toAddOrModify(Integer id,Integer pageNo,Model model){
         model.addAttribute("id",id);
         model.addAttribute("pageNo",pageNo);
         return "examAddOrModify";
     }
-    @RequestMapping("/examDetail")
+    @RequestMapping(value = "/examDetail",produces = "text/html;charset=utf-8")
     public String toDetail(Integer id,Integer pageNo,Model model){
         Question question=questionService.getQuestionById(id);
         model.addAttribute("question",question);
@@ -76,15 +76,15 @@ public class DispatcherController {
     public String toLogin(){
         return "login";
     }
-    @RequestMapping("/examHistory")
+    @RequestMapping(value = "/examHistory",produces = "text/html;charset=utf-8")
     public String toExamHistory(){
         return "examHistory";
     }
-    @RequestMapping("/changePwd")
+    @RequestMapping(value = "/changePwd",produces = "text/html;charset=utf-8")
     public String toChangePwd(){
         return "changePwd";
     }
-    @RequestMapping("/examManager")
+    @RequestMapping(value = "/examManager",produces = "text/html;charset=utf-8")
     public String toExamManager(Integer pageNo, Model model){
         model.addAttribute("pageNo", pageNo);
         return "examManager";

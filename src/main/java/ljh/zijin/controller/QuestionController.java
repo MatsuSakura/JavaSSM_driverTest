@@ -30,10 +30,11 @@ public class QuestionController {
     @RequestMapping(value = "/addOrModify.action",produces = "text/html;charset=utf-8" )
     public String addOrModify(Question question, Model model, Integer pageNo){
         questionService.addOrModify(question);
+        System.out.println(question.getQuestionBody());
         model.addAttribute("pageNo",pageNo);
         return "examManager";
     }
-    @RequestMapping(value = "/removeQuestionById.action")
+    @RequestMapping(value = "/removeQuestionById.action",produces = "text/html;charset=utf-8")
     @ResponseBody
     public String removeQuestionById(Integer id){
         questionService.removeQuestionById(id);
