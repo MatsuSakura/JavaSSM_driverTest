@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/static/css/font.css}">
+    <link rel="stylesheet" th:href="@{/static/css/login.css}">
+    <link rel="stylesheet" th:href="@{/static/css/xadmin.css}">
+    <script type="text/javascript"
+            src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script th:src="@{/static/layui/layui.js}" charset="utf-8"></script>
+    <script th:src="@{/static/layui/xadmin.js}" charset="utf-8"></script>
+    <script th:inline="javascript">
+        function changePwd(){
+            //1、收集用户在页面上输出的信息
+            var oldPwd = $("#oldPwd").val();
+            var newPwd = $("#newPwd").val();
+            var reNewPwd = $("#reNewPwd").val();
+            //2、先进行页面上能够执行的判断
+            //这里就是两次输入的新密码是否一致
+            if(newPwd != reNewPwd){
+                alert("两次输入的新密码不一致，请修改后再试！");
+                return; //直接结束方法，不再继续执行
+            }
+            //boot趋向前后台分离，前台纯粹使用html页面，不再用jsp
+            //前后台之间的数据传递，就主要依赖ajax来进行了
+            $.ajax({
+                type: "POST",
+                url: "changePwd.action",
+                data: {
+                    "oldPwd": oldPwd, //旧密码是否正确不在页面上判断，放在后台判断
+                    "newPwd": newPwd
+                },
+                dataType: "text",
+                success: function(res){
+                    //这里可以预期的分支
+                    //1、原密码错误
+                    //2、修改失败
+                    //3、修改成功
+                    if(res == "ok"){
+                        alert("修改成功");
+                        //修改成功后要跳转到登录页面进行登录操作
+                        //不能直接跳登录，要注销后跳
+                        //也就是执行退出系统操作
+                        top.location.href = "checkOut.action";
+                    }else{
+                        //如果是其他任何内容，都视为是错误提示信息
+                        //直接输出给用户看
+                        alert(res);
+                    }
+                }
+
+            });
+        }
+    </script>
+</head>
+<body>
+    <table class="layui-table layui-form">
+        <tr>
+            <td>原密码：</td>
+            <td><input type="password" id="oldPwd" /></td>
+        </tr>
+        <tr>
+            <td>新密码：</td>
+            <td><input type="password" id="newPwd" /></td>
+        </tr>
+        <tr>
+            <td>确认新密码：</td>
+            <td><input type="password" id="reNewPwd" /></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input class="layui-btn" type="button" value="确认修改"
+                onclick="changePwd()"/></td>
+        </tr>
+    </table>
+</body>
+</html>

@@ -8,6 +8,7 @@ import ljh.zijin.util.Pager;
 import ljh.zijin.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -41,5 +42,15 @@ public class QuestionController {
         Question question=questionService.getQuestionById(id);
         ObjectMapper mapper = new ObjectMapper();
         return StringUtil.getJson(question);
+    }
+    @RequestMapping(value = "/addOrModify.action",produces = "text/html;charset=utf-8" )
+    public String addOrModify(Question question, Model model, Integer pageNo){
+        questionService.addOrModify(question);
+        model.addAttribute("pageNo",pageNo);
+        return "examManager";
+    }
+    @RequestMapping(value = "/removeQuestionById.action")
+    public String removeQuestionById(Integer id){
+        return "removeQuestion";
     }
 }

@@ -13,6 +13,18 @@ import java.util.*;
 public class QuestionServiceImpl implements QuestionService {
     @Autowired
     private QuestionDAO questionDAO;
+    @Override
+    public void removeQuestionById(Integer id){
+        questionDAO.deleteQuestionById(id);
+    }
+    @Override
+    public void addOrModify(Question question){
+        if(question.getId()==null){
+            questionDAO.insertQuestion(question);
+        }else{
+            questionDAO.updateQuestion(question);
+        }
+    }
 
     @Override
     public Pager<Question> getQuestionByPage(Integer pageNo,Integer pageSize){
@@ -46,4 +58,5 @@ public class QuestionServiceImpl implements QuestionService {
         }
         return result;
     }
+
 }

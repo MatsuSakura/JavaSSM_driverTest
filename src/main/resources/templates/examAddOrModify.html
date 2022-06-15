@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>部门编辑</title>
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3"/>
+    <meta http-equiv="description" content="this is my page"/>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+	  <link rel="stylesheet" th:href="@{/static/css/font.css}"/>
+	  <link rel="stylesheet" th:href="@{/static/css/login.css}"/>
+	  <link rel="stylesheet" th:href="@{/static/css/xadmin.css}"/>
+	  <script type="text/javascript"
+			  src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+	  <script th:src="@{/static/layui/layui.js}" charset="utf-8"></script>
+	  <script th:src="@{/static/js/xadmin.js}" charset="utf-8"></script>
+	  <script th:inline="javascript">
+		  function backManager(){
+			  location.href = "examManager?pageNo="+[[${pageNo}]];
+		  }
+		  $(function (){
+			  var id=[
+					  [${id}]
+			  ];
+			  $("#pageNo").val([
+					  [${pageNo}]
+			  ]);
+			  if(id==null){
+				  $("input[type=submit]").val("修改");
+				  $.ajax({
+					  type:"POST",
+					  url:"question/getQuestionById.action",
+					  data:{"id":id},
+					  dataType:"json",
+					  success:function (res){
+						  $("#questionId").val(res.id);
+						  $("#questionBody").val(res.questionBody);
+						  $("#option1").val(res.option1);
+						  $("#option2").val(res.option2);
+						  $("#option3").val(res.option3);
+						  $("#option4").val(res.option4);
+						  $("#q_cur").val(res.q_cur);
+					  }
+				  });
+			  }
+		  });
+	  </script>
+	<style type="text/css">
+		body,div,table,tr,td{
+			margin: 0px;
+			padding: 0px;
+		}
+	
+		#deptEditTable{
+			font-size: 15px;
+			border-collapse: collapse;
+			width: 350px;
+			margin: 20px auto;
+			
+			
+		}
+		
+		#deptEditTable td{
+			height: 40px;
+		}
+	
+	</style>
+  </head>
+  
+  <body>
+   	<form class="layui-table layui-form" th:action="@{question/addOrModify.action}" method="post">
+		<input type="hidden" id="questionId" name="id"/>
+		<input type="hidden" id="pageNo" name="pageNo"/>
+   	<table class="layui-table layui-form" id="deptEditTable">
+   		<tr>
+   			<td>题干:</td>
+   			<td>
+				<label for="questionBody"></label><textarea id="questionBody" name="questionBody"></textarea>
+   			</td>
+   		</tr>
+   		<tr>
+   			<td>选项A:</td>
+   			<td>
+				<label for="option1"></label><input type = "text" name="option1" id="option1"/>
+   			</td>
+   		</tr>
+   		<tr>
+   			<td>选项B:</td>
+   			<td>
+				<label for="option2"></label><input type = "text" name="option2" id="option2"/>
+   			</td>
+   		</tr>
+   		<tr>
+   			<td>选项C:</td>
+   			<td>
+				<label for="option3"></label><input type = "text" name="option3" id="option3"/>
+   			</td>
+   		</tr>
+		<tr>
+			<td>选项D:</td>
+			<td>
+				<label for="option4"></label><input type = "text" name="option4" id="option4"/>
+			</td>
+		</tr>
+		<tr>
+			<td>正确答案:</td>
+			<td>
+				<label for="q_cur"></label><select id="q_cur" name="q_cur">
+					<option value="1">A</option>
+					<option value="2">B</option>
+					<option value="3">C</option>
+					<option value="4">D</option>
+				</select>
+
+			</td>
+		</tr>
+		<tr>
+   			<td colspan="2">
+   				<input class="layui-btn" type = "submit" value="添加"/>
+   				<input class="layui-btn layui-btn-danger" type = "reset" value="重置"/>
+				<input class="layui-btn layui-btn-normal" type="button" value="返回"
+				 onclick="backManager()"/>
+   			</td>
+   		</tr>  	
+   		</table>
+   	</form>
+  </body>
+</html>

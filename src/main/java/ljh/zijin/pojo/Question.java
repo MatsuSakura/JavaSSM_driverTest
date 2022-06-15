@@ -9,6 +9,8 @@ public class Question {
     private String option4;
     private Integer q_cur;
 
+    public Question() {
+    }
     public Question(Integer id, String questionBody, String option1, String option2,
                     String option3, String option4, Integer q_cur) {
         this.id = id;
@@ -20,8 +22,7 @@ public class Question {
         this.q_cur = q_cur;
     }
 
-    public Question() {
-    }
+
 
     public Integer getId() {
         return id;

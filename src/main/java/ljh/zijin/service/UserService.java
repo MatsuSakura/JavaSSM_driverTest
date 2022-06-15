@@ -7,4 +7,5 @@ public interface UserService {
             throws Exception;
     Boolean checkUsernameExist(String username);
     void regist(String username, String password);
+    void changePwd(User user, String newPwd);
 }

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
+      <base href="http://localhost:8080/exam/" />
     <title>考题管理</title>
 	
     <meta http-equiv="keywords" content="keyword1,keyword2,keyword3" />
@@ -21,14 +22,37 @@
           #pageNum{
               text-align: center;
           }
+          .span_btn{
+              display: inline-block; /*使元素拥有完整的盒子模型*/
+              width: 30px;
+              height: 30px;
+              line-height: 30px; /*使span中的文字上下居中*/
+              background-color: cornsilk;
+              border-radius: 10px;
+              margin: 0 10px;
+          }
+          .span_btn:hover{
+              background-color: #FF9900;
+              color: white;
+          }
+
+          .cur_page{
+              display: inline-block; /*使元素拥有完整的盒子模型*/
+              width: 30px;
+              height: 30px;
+              line-height: 30px; /*使span中的文字上下居中*/
+              background-color: #FF9900;
+              color: white;
+              border-radius: 10px;
+              margin: 0 10px;
+          }
+
       </style>
-      <script type="text/javascript"
-              src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-      <script type="text/javascript">
+      <script th:inline="javascript">
         /*<![CDATA[*/
         var array = new Array('0','A','B','C','D');
         $(function(){
-            var i=page.pageNo;
+            var i=[[${pageNo}]];
             if(i==null){
                 i=1;
             }
@@ -37,13 +61,32 @@
         function toDetail(id){
             location.href="examDetail?id="+id+"&pageNo="+page.pageNo;
         }
+        function toModify(id){
+            location.href = "examAddOrModify?id="+id+"&pageNo="+page.pageNo;
+        }
 		function del(){
 			var result = window.confirm("确认要删除吗?");
 			if(true == result){
 				alert("删除成功");
 			}
 		}
-
+        function toDelete(id){
+            $.ajax({
+                type: "POST",
+                url:"question/removeQuestionById.action",
+                async:false,
+                data: {"id":id},
+                dataType: "text",
+                success:function (res){
+                    if(res=="ok"){
+                        alert("删除成功");
+                    }else{
+                        alert("删除失败");
+                    }
+                    refresh(page.pageNo);
+                }
+            });
+        }
 
 		//下面尝试在这个题目管理页面上实现分页查询的功能
         var page; //结果容器
@@ -81,8 +124,10 @@
                             subStr(question.option4, 20)+"</td>" +
                             "<td>"+array[question.q_cur]+"</td>" +
                             "<td>" +
-                                "<input style='width: 80px' class='layui-btn' value='修改'/><br>" +
-                                "<input style='width: 80px' class='layui-btn layui-btn-danger' value='删除'/><br>" +
+                                "<input style='width: 80px' class='layui-btn' value='修改'" +
+                            "       onclick='toModify("+question.id+")'/><br>" +
+                                "<input style='width: 80px' class='layui-btn layui-btn-danger' value='删除'" +
+                            "       onclick='toDelete("+question.id+")'/><br>" +
                                 "<input style='width: 80px' class='layui-btn layui-btn-normal' value='详情' " +
                             "onclick='toDetail("+question.id+")'/><br>" +
                             "</td>" +
@@ -141,7 +186,7 @@
   <body>
     <div class="add">
         <label class="layui-form-label"> </label>
-        <a class="layui-btn" href="deptAdd.html" target="contentPage">
+        <a class="layui-btn" href="examAddOrModify" target="contentPage">
             添加题目
         </a>
     </div>

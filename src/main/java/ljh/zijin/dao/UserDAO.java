@@ -14,4 +14,5 @@ public interface UserDAO {
     void updateUserName(Map<String,Object> map);
     void deleteUserById(Integer id);
     User selectUserByName(String username);
+    void updateUserPwd(User user);
 }

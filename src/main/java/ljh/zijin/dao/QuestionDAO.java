@@ -12,4 +12,7 @@ public interface QuestionDAO {
     Question selectQuestionById(Integer id);
     Integer countQuestions();
     List<Question> selectQuestionByPage(Map<String,Object> params);
+    void insertQuestion(Question question);
+    void updateQuestion(Question question);
+    void deleteQuestionById(Integer id);
 }

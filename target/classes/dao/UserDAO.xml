@@ -10,6 +10,15 @@
     <sql id="allCols">
         u_id,u_name,u_password
     </sql>
+    <update id="updateUserPwd" parameterType="user">
+        update
+            t_user
+        set
+            u_password = #{password}
+        where
+            u_id = #{id}
+    </update>
+
     <select id="selectAllIds" resultMap="userMap" parameterType="int">
         select u_id from t_user
     </select>

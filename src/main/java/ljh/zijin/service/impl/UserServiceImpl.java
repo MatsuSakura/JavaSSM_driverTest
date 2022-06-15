@@ -19,6 +19,11 @@ public class UserServiceImpl implements UserService {
         return user!=null;
     }
     @Override
+    public void changePwd(User user, String newPwd) {
+        user.setPassword(newPwd);
+        userDAO.updateUserPwd(user);
+    }
+    @Override
     public void regist(String username,String password){
         User user=new User();
         user.setUsername(username);

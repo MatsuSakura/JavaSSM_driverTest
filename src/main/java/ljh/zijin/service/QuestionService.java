@@ -9,4 +9,6 @@ public interface QuestionService {
     List<Integer> getQuestionIds();
     Question getQuestionById(Integer id);
     Pager<Question> getQuestionByPage(Integer pageNo,Integer pageSize);
+    void addOrModify(Question question);
+    void removeQuestionById(Integer id);
 }

@@ -7,15 +7,13 @@
     <meta http-equiv="description" content="this is my page"/>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
 
-	  <link rel="stylesheet" href="../static/css/xadmin.css">
-	  <link rel="stylesheet" th:href="@{/static/css/font.css}">
-	  <link rel="stylesheet" th:href="@{/static/css/login.css}">
 	  <link rel="stylesheet" th:href="@{/static/css/xadmin.css}">
+	  <link rel="stylesheet" th:href="@{/static/css/font.css}">
 	  <script type="text/javascript"
 			  src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 	  <script th:src="@{/static/layui/layui.js}" charset="utf-8"></script>
-	  <script type="text/javascript">
-        /*<![CDATA[*/
+	  <script th:inline="javascript">
+
 		$(function () {
 			//在页面加载后用ajax去后台获取用户的考试成绩数据，加载在页面上
 			$.ajax({
@@ -55,8 +53,6 @@
             }
             return num;
         }
-
-        /*]]>*/
 	</script>
   </head>
   
