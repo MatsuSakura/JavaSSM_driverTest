@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>考试成绩</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3"/>
+    <meta http-equiv="description" content="this is my page"/>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
+	  <link rel="stylesheet" href="../static/css/xadmin.css">
+	  <link rel="stylesheet" th:href="@{/static/css/font.css}">
+	  <link rel="stylesheet" th:href="@{/static/css/login.css}">
+	  <link rel="stylesheet" th:href="@{/static/css/xadmin.css}">
+	  <script type="text/javascript"
+			  src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+	  <script th:src="@{/static/layui/layui.js}" charset="utf-8"></script>
+	  <script type="text/javascript">
+        /*<![CDATA[*/
+		$(function () {
+			//在页面加载后用ajax去后台获取用户的考试成绩数据，加载在页面上
+			$.ajax({
+                type: "POST",
+                url: "history/getHistory.action",
+                data: "",
+				dataType: "json",
+				success: function(res){
+                    //res是当前用户的所有考试记录
+					for(var i = 0; i < res.length; i++){
+					    var history = res[i];
+					    console.log(history);
+					    var tr = $("<tr>"); //每个记录占一行
+						var td1 = $("<td>");
+						td1.text(history.id);
+						var td2 = $("<td>");
+						td2.text(history.score);
+						var td3 = $("<td>");
+						td3.text(format(new Date(history.createTime)));
+						tr.append(td1);
+						tr.append(td2);
+						tr.append(td3);//组装表格的一行
+						$("#content").append(tr); //组装表格
+					}
+				}
+            });
+        });
+
+		function format(date){ //将时间转为字符串格式
+		    return date.getFullYear() + "-" +
+				addZero(date.getMonth() + 1) + "-" + //月份是0-11 需要+1转为 1-12
+                addZero(date.getDate());
+		}
+        function addZero(num) {
+            if(num < 10){
+                return "0" + num;
+            }
+            return num;
+        }
+
+        /*]]>*/
+	</script>
+  </head>
+  
+  <body>
+         	<table class="layui-table layui-form">
+         		<tr class="titleRow">
+					<td>考试编号</td>
+         			<td>成绩</td>
+         			<td>考试时间</td>
+         		</tr>
+				<tbody id="content"></tbody>
+         	</table>
+  </body>
+</html>

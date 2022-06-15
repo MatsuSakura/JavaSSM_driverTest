@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>部门明细</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" th:href="@{/static/css/font.css}">
+    <link rel="stylesheet" th:href="@{/static/css/login.css}">
+    <link rel="stylesheet" th:href="@{/static/css/xadmin.css}">
+    <script type="text/javascript"
+            src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script th:src="@{/static/layui/layui.js}" charset="utf-8"></script>
+    <script type="text/javascript">
+      function backManager(){
+        location.href="examManager?pageNo="+[[${pageNo}]];
+      }
+    </script>
+  </head>
+  
+  <body>
+  <table class="layui-table">
+    <tr>
+      <td>题目：</td>
+      <td th:text="${question.questionBody}"></td>
+    </tr>
+    <tr>
+      <td>选项A：</td>
+      <td th:text="${question.option1}"></td>
+    </tr>
+    <tr>
+      <td>选项B：</td>
+      <td th:text="${question.option2}"></td>
+    </tr>
+    <tr>
+      <td>选项C：</td>
+      <td th:text="${question.option3}"></td>
+    </tr>
+    <tr>
+      <td>选项D：</td>
+      <td th:text="${question.option4}"></td>
+    </tr>
+    <p>正确答案：<span th:text="${q_cur}"></span></p>
+  </table>
+<!--	<a href="examManager?pageNo=${pageNo}" target="contentPage"><input type="button" value="返回"></a>-->
+  <input class="layui-btn" value="返回" onclick="backManager()"/>
+  </body>
+</html>

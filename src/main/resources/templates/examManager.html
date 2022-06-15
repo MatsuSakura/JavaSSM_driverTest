@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>考题管理</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3" />
+    <meta http-equiv="description" content="this is my page" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+      <link rel="stylesheet" th:href="@{/static/css/font.css}">
+      <link rel="stylesheet" th:href="@{/static/css/login.css}">
+      <link rel="stylesheet" th:href="@{/static/css/xadmin.css}">
+      <script type="text/javascript"
+              src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+      <script th:src="@{/static/layui/layui.js}" charset="utf-8"></script>
+      <script th:src="@{/static/js/xadmin.js}" charset="utf-8"></script>
+      <style type="text/css">
+          tbody td{
+              font-size: 12px;
+          }
+          #pageNum{
+              text-align: center;
+          }
+      </style>
+      <script type="text/javascript"
+              src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+      <script type="text/javascript">
+        /*<![CDATA[*/
+        var array = new Array('0','A','B','C','D');
+        $(function(){
+            var i=page.pageNo;
+            if(i==null){
+                i=1;
+            }
+            refresh(i);//在页面加载后，从后台获取第一页的数据
+        });
+        function toDetail(id){
+            location.href="examDetail?id="+id+"&pageNo="+page.pageNo;
+        }
+		function del(){
+			var result = window.confirm("确认要删除吗?");
+			if(true == result){
+				alert("删除成功");
+			}
+		}
+
+
+		//下面尝试在这个题目管理页面上实现分页查询的功能
+        var page; //结果容器
+		function refresh(pageNo){
+            $.ajax({
+                type: "POST",
+                url: "question/getQuestionByPage.action",
+                data: {
+                    "pageSize": 5,
+                    "pageNo": pageNo
+                },
+                dataType: "json",
+                success: function(res){
+                    //先清空页面上的容器
+                    $("#content").empty();
+                    console.log(res);
+                    page = res; //将结果保存到结果容器中
+                    var html = "";
+                    var index = 0;
+                    for(index = 0; index < page.datas.length; index++){
+                        //获取到集合中的一个元素
+                        var question = page.datas[index];
+
+                        html += "<tr>" +
+                            "<td>"+question.id+"</td>" +
+                            "<td title='"+question.questionBody+"'>"+
+                            subStr(question.questionBody, 20)+"</td>" +
+                            "<td title='"+question.option1+"'>"+
+                            subStr(question.option1, 20)+"</td>" +
+                            "<td title='"+question.option2+"'>"+
+                            subStr(question.option2, 20)+"</td>" +
+                            "<td title='"+question.option3+"'>"+
+                            subStr(question.option3, 20)+"</td>" +
+                            "<td title='"+question.option4+"'>"+
+                            subStr(question.option4, 20)+"</td>" +
+                            "<td>"+array[question.q_cur]+"</td>" +
+                            "<td>" +
+                                "<input style='width: 80px' class='layui-btn' value='修改'/><br>" +
+                                "<input style='width: 80px' class='layui-btn layui-btn-danger' value='删除'/><br>" +
+                                "<input style='width: 80px' class='layui-btn layui-btn-normal' value='详情' " +
+                            "onclick='toDetail("+question.id+")'/><br>" +
+                            "</td>" +
+                            "</tr>"
+                    }
+                    for(;index < 5; index++){ //使用空白行占满页面
+                        html += "<tr>" +
+                            "<td></td>" +
+                            "<td></td>" +
+                            "<td></td>" +
+                            "<td></td>" +
+                            "<td></td>" +
+                            "<td></td>" +
+                            "<td></td>" +
+                            "<td>" +
+                            "<input style='width: 80px' class='layui-btn' value='修改' disabled='disabled'/><br>" +
+                            "<input style='width: 80px' class='layui-btn layui-btn-danger' value='删除' disabled='disabled'/><br>" +
+                            "<input style='width: 80px' class='layui-btn layui-btn-normal' value='详情' disabled='disabled'/><br>" +
+                            "</td>" +
+                            "</tr>";
+                    }
+
+                    $("#content").html(html);
+
+                    //生成分页按钮
+                    $("#pageNum").empty();
+                    for(var i = 1; i <= page.pageCount; i++){
+                        var span = $("<span>");
+                        span.text(i); //在span中放入表示的页码
+                        if(i == page.pageNo){
+                            //当前页和其他页显示不同的效果
+                            span.addClass("cur_page");
+                        }else {
+                            //其他页需要页面跳转的方法
+                            span.addClass("span_btn");
+                            span.attr("onclick", "refresh("+i+")");
+                        }
+                        $("#pageNum").append(span);
+                    }
+                }
+            });
+        }
+
+        function subStr(str, length){
+		    if(str.length <= length){ //输入字符串是否有截取的必要
+		        return str; //长度小于要求，不需要截取，直接返回
+            }else{
+		        //返回截取结果 + 省略号
+		        return str.substring(0, length) + "...";
+            }
+        }
+        /*]]>*/
+	</script>
+  </head>
+  
+  <body>
+    <div class="add">
+        <label class="layui-form-label"> </label>
+        <a class="layui-btn" href="deptAdd.html" target="contentPage">
+            添加题目
+        </a>
+    </div>
+<!--    <table class="deptInfo">-->
+        <table class="layui-table layui-form">
+        <tr class="titleRow">
+            <td>题目编号</td>
+            <td>题干</td>
+            <td>选项A</td>
+            <td>选项B</td>
+            <td>选项C</td>
+            <td>选项D</td>
+            <td>正确答案</td>
+            <td>操作列表</td>
+        </tr>
+        <tbody id="content"></tbody>
+    </table>
+    <div id="pageNum"></div>
+  </body>
+</html>

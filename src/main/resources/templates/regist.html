@@ -1,0 +1,107 @@
+<!doctype html>
+<html class="x-admin-sm">
+<head>
+    <meta charset="UTF-8">
+    <title>紫金学院驾考注册系统</title>
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="stylesheet" th:href="@{/static/css/font.css}">
+    <link rel="stylesheet" th:href="@{/static/css/login.css}">
+    <link rel="stylesheet" th:href="@{/static/css/xadmin.css}">
+    <script type="text/javascript"
+            src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script th:src="@{/static/layui/layui.js}" charset="utf-8"></script>
+    <!--    <script type="text/javascript" src="../template/js/jquery-1.8.3.min.js"></script>-->
+    <script type="text/javascript">
+        var nameFlag=false;
+        var pwdFlag=false;
+
+        function checkusername(){
+            var username=$("#username").val();
+            $.ajax({
+                type:"POST",
+                url:"user/checkUsername.action",
+                data:{
+                    "username":username
+                },
+                dataType:"text",
+                success:function (res){
+                    if(res!="ok"){
+                        alert("该姓名已被注册，请更换！");
+                        nameFlag=false;
+                    }else{
+                        nameFlag=true;
+                        // alert("注册成功");
+                    }
+                }
+            });
+        }
+        function checkPwd(){
+            var password=$("#password").val();
+            var repassword=$("#repassword").val();
+            if(password==""){
+                alert("请输入密码");
+                pwdFlag=false;
+                return;
+            }
+            if (password!=repassword){
+                alert("两次输入密码不一致");
+                pwdFlag=false;
+                return;
+            }
+            pwdFlag=true;
+        }
+        function doRegist(){
+            if(nameFlag && pwdFlag){
+                var username=$("#username").val();
+                var password=$("#password").val();
+
+                $.ajax({
+                    type:"POST",
+                    url:"user/doRegist.action",
+                    data:{
+                        "username":username,
+                        "password":password
+                    },
+                    dataType: "text",
+                    success:function (res){
+                        if(res=="ok"){
+                            alert("注册成功，跳转到登录页面");
+                            location.href="/exam/login";
+                        }else{
+                            alert(res);
+                        }
+                    }
+                });
+            }else{
+                alert("请输入正确的注册信息");
+            }
+        }
+        function login(){
+            window.location.href="login";
+        }
+    </script>
+</head>
+<body class="login-bg">
+
+<div class="login layui-anim layui-anim-up">
+    <div class="message">账号注册</div>
+    <div id="darkbannerwrap"></div>
+    <input id="username" placeholder="用户名" type="text"
+           class="layui-input" onblur="checkusername()"/>
+    <hr class="layui-border-green">
+    <input id="password" placeholder="密码" type="password"
+           class="layui-input"/>
+    <input id="repassword" placeholder="再次输入密码" type="password"
+           class="layui-input" onblur="checkPwd()"/>
+    <hr class="layui-border-green">
+    <input value="注册" style="width: 100%;" type="button" onclick="doRegist()"/>
+    <input value="去登录" style="width: 100%;margin-top: 10px" type="button" onclick="login()"/>
+<!--    <a href="login.html" class="layui-btn" style="height: 48px;width: 100%;margin-top: 10px;font-size: 14px">去登录</a>-->
+
+</div>
+</body>
+</html>

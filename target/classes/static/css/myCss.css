@@ -1,0 +1,46 @@
+/*span{*/
+/*    color: red;*/
+/*}*/
+/*#s2{*/
+/*    color: aqua;*/
+/*}*/
+.c1{
+    color: green;
+}
+.c2{
+    font-size: 20px;
+}
+/*div{*/
+/*    color: red;*/
+/*}*/
+/*div li{*/
+/*    color: aqua;*/
+/*}*/
+li + li{
+    color: blue;
+}
+a:link{color: green}
+a:visited{color: orangered}
+a:hover{color: chocolate}
+a:active{color: aqua}
+.btn_bd{
+    width: 100px;
+    height: 30px;
+    background-color: dodgerblue;
+    border: 2px dodgerblue solid;
+    border-radius: 10px;
+    color: white;
+    line-height: 30px;
+    text-align: center;
+    margin-top: 10px;
+}
+.btn_bd:hover{
+    width: 100px;
+    height: 30px;
+    background-color: white;
+    border: 2px dodgerblue solid;
+    border-radius: 10px;
+    color: dodgerblue;
+    line-height: 30px;
+    text-align: center;
+}
