@@ -167,6 +167,8 @@
                         }
                         $("#pageNum").append(span);
                     }
+                    //设置返回当前页页码
+                    $("#addQuestion").attr("href", "examAddOrModify?pageNo="+page.pageNo);
                 }
             });
         }
@@ -186,7 +188,7 @@
   <body>
     <div class="add">
         <label class="layui-form-label"> </label>
-        <a class="layui-btn" href="examAddOrModify" target="contentPage">
+        <a id="addQuestion" class="layui-btn" href="" target="contentPage">
             添加题目
         </a>
     </div>

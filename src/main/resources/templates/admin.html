@@ -21,6 +21,9 @@
                 top.location.href="checkOut.action";
             }
         }
+        $.ajax({
+
+        });
     </script>
 </head>
 <body class="index">
@@ -33,16 +36,16 @@
         <a><i title="展开左侧栏" class="iconfont">&#xe699;</i></a>
     </div>
 
-    <ul class="layui-nav right" lay-filter="">
-        <li class="layui-nav-item"><a href="javascript:;">admin</a>
-            <dl class="layui-nav-child">
-                <!-- 二级菜单 -->
-                <dd>
-                    <a th:href="login">退出</a>
-                </dd>
-            </dl></li>
+<!--    <ul class="layui-nav right" lay-filter="">-->
+<!--        <li class="layui-nav-item"><a href="javascript:;">admin</a>-->
+<!--            <dl class="layui-nav-child">-->
+<!--                &lt;!&ndash; 二级菜单 &ndash;&gt;-->
+<!--                <dd>-->
+<!--                    <a th:href="login">退出</a>-->
+<!--                </dd>-->
+<!--            </dl></li>-->
 
-    </ul>
+<!--    </ul>-->
 </div>
 <!-- 顶部结束 -->
 <!-- 中部开始 -->
@@ -50,7 +53,7 @@
 <div class="left-nav">
     <div id="side-nav">
         <ul id="nav">
-            <li><a th:onclick="'javascript:;'"> <i class="iconfont left-nav-li">&#xe6b8;</i>
+            <li><a id="qus" th:onclick="'javascript:;'"> <i class="iconfont left-nav-li">&#xe6b8;</i>
                 <cite>题库系统菜单</cite> <i class="iconfont nav_right">&#xe697;</i></a>
                 <ul class="sub-menu">
                     <li>
@@ -102,7 +105,7 @@
 <div class="page-content">
     <div class="layui-tab tab" lay-filter="xbs_tab" lay-allowclose="false">
         <ul class="layui-tab-title">
-            <li class="home"><i class="layui-icon">&#xe68e;</i>我的桌面</li>
+            <li class="home"><a href="welcome" target="contentPage"/><i class="layui-icon">&#xe68e;</i>我的桌面</li>
         </ul>
         <div class="layui-unselect layui-form-select layui-form-selected"
              id="tab_right">
