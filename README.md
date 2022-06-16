@@ -16,7 +16,7 @@ xx学院驾考题库，带前后端页面，前端实现了数据库中随机抽
 
 ### 注册页面
 
-结合xadmin框架，xadmin集成了layui
+结合xadmin框架，xadmin集成了layui.
 
 ![image-20220616154539648](https://zjyutan.oss-cn-huhehaote.aliyuncs.com/img/image-20220616154539648.png)
 
