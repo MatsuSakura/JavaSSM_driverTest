@@ -22,7 +22,7 @@
             }
         }
         $(function (){
-            var id=GetQueryString("username");
+            var id=[[${session.loginUser.username}]];
             if (id!=null&&id!="admin"){
                 console.log("普通用户登录");
                 $("#qus").css("display","none");
@@ -30,14 +30,6 @@
                 return;
             }
         });
-        function GetQueryString(username)
-        {
-            var reg = new RegExp("(^|&)"+ username +"=([^&]*)(&|$)");
-            var r = window.location.search.substr(1).match(reg);
-            if(r!=null)return  decodeURI(r[2]); return null;
-        }
-
-
 
     </script>
 </head>
@@ -51,16 +43,18 @@
         <a><i title="展开左侧栏" class="iconfont">&#xe699;</i></a>
     </div>
 
-<!--    <ul class="layui-nav right" lay-filter="">-->
-<!--        <li class="layui-nav-item"><a href="javascript:;">admin</a>-->
-<!--            <dl class="layui-nav-child">-->
-<!--                &lt;!&ndash; 二级菜单 &ndash;&gt;-->
-<!--                <dd>-->
-<!--                    <a th:href="login">退出</a>-->
-<!--                </dd>-->
-<!--            </dl></li>-->
+    <ul class="layui-nav right" lay-filter="">
+        <li class="layui-nav-item"><a href="javascript:;">
+            <div th:text="${session.loginUser.username}"/>
+        </a>
+            <dl class="layui-nav-child">
+                <!-- 二级菜单 -->
+                <dd>
+                    <a onclick="checkOut()">退出</a>
+                </dd>
+            </dl></li>
 
-<!--    </ul>-->
+    </ul>
 </div>
 <!-- 顶部结束 -->
 <!-- 中部开始 -->
