@@ -9,3 +9,4 @@ JavaSSM SpringBoot+Mybatis+Ajax+Layui(xadmin)
 ####管理员
 管理员可以管理题目的内容，新增或修改题目
 本人参加学校生产实习完成的项目，基本上达到了目标
+后续通过thymeleaf的形式来进行登录用户名传值
